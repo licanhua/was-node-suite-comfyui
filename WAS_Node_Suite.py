@@ -41,7 +41,6 @@ import json
 import nodes
 import math
 import numpy as np
-from numba import jit
 import os
 import random
 import re
@@ -58,7 +57,7 @@ p310_plus = (sys.version_info >= (3, 10))
 
 MANIFEST = {
     "name": "WAS Node Suite (Revised)",
-    "version": (3,0,0),
+    "version": (3,1,0),
     "author": "WASasquatch",
     "project": "https://github.com/ltdrdata/was-node-suite-comfyui",
     "description": "An extensive node suite for ComfyUI with over 180 new nodes",
@@ -653,7 +652,6 @@ def parse_dynamic_prompt(prompt, seed):
 
 # Ambient Occlusion Factor
 
-@jit(nopython=True)
 def calculate_ambient_occlusion_factor(rgb_normalized, depth_normalized, height, width, radius):
     occlusion_array = np.zeros((height, width), dtype=np.uint8)
 
@@ -681,7 +679,6 @@ def calculate_ambient_occlusion_factor(rgb_normalized, depth_normalized, height,
 
 # Direct Occlusion Factor
 
-@jit(nopython=True)
 def calculate_direct_occlusion_factor(rgb_normalized, depth_normalized, height, width, radius):
     occlusion_array = np.empty((int(height), int(width)), dtype=np.uint8)
     depth_normalized = depth_normalized[:, :, 0]
@@ -2018,17 +2015,14 @@ class WAS_Tools_Class():
 
     def perlin_noise(self, width, height, octaves, persistence, scale, seed=None):
 
-        @jit(nopython=True)
         def fade(t):
             return 6 * t**5 - 15 * t**4 + 10 * t**3
 
 
-        @jit(nopython=True)
         def lerp(t, a, b):
             return a + t * (b - a)
 
 
-        @jit(nopython=True)
         def grad(hash, x, y, z):
             h = hash & 15
             u = x if h < 8 else y
@@ -2036,7 +2030,6 @@ class WAS_Tools_Class():
             return (u if (h & 1) == 0 else -u) + (v if (h & 2) == 0 else -v)
 
 
-        @jit(nopython=True)
         def noise(x, y, z, p):
             X = np.int32(np.floor(x)) & 255
             Y = np.int32(np.floor(y)) & 255
@@ -2099,22 +2092,18 @@ class WAS_Tools_Class():
 
     def perlin_power_fractal(self, width, height, octaves, persistence, lacunarity, exponent, scale, seed=None):
 
-        @jit(nopython=True)
         def fade(t):
             return 6 * t**5 - 15 * t**4 + 10 * t**3
 
-        @jit(nopython=True)
         def lerp(t, a, b):
             return a + t * (b - a)
 
-        @jit(nopython=True)
         def grad(hash, x, y, z):
             h = hash & 15
             u = x if h < 8 else y
             v = y if h < 4 else (x if h == 12 or h == 14 else z)
             return (u if (h & 1) == 0 else -u) + (v if (h & 2) == 0 else -v)
 
-        @jit(nopython=True)
         def noise(x, y, z, p):
             X = np.int32(np.floor(x)) & 255
             Y = np.int32(np.floor(y)) & 255
