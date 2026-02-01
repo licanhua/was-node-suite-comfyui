@@ -6,10 +6,36 @@
 
 ### A node suite for [ComfyUI](https://github.com/comfyanonymous/ComfyUI) with many new nodes, such as image processing, text processing, and more.
 
-#### [Share Workflows](https://github.com/WASasquatch/was-node-suite-comfyui/wiki/Workflow-Examples) to the workflows wiki. Preferably embedded PNGs with workflows, but JSON is OK too. 
+#### [Share Workflows](https://github.com/WASasquatch/was-node-suite-comfyui/wiki/Workflow-Examples) to the workflows wiki. Preferably embedded PNGs with workflows, but JSON is OK too.
 
+---
+
+## 🔴 **IMPORTANT: Numba Dependency Removed (v3.1.0)**
+
+**What Changed:**
+- **Numba has been completely removed** from WAS Node Suite as of version 3.1.0
+- All JIT-compiled functions now run as pure Python/NumPy code
+
+**Why This Change Was Made:**
+- **Compatibility Issue:** Numba 0.63.1 does not support NumPy 2.4+, causing `ImportError: Numba needs NumPy 2.3 or less`
+- ComfyUI and other extensions have upgraded to NumPy 2.4.1, breaking Numba compatibility
+- Removing Numba ensures WAS Node Suite works across all modern NumPy versions without dependency conflicts
+
+**Performance Impact:**
+- Nodes using the following features may run slower (5-20x) without JIT compilation:
+  - **Perlin Noise generation** nodes (`WAS_Image_Perlin_Noise`, `WAS_Image_Perlin_Power_Fractal`)
+  - **Ambient/Direct Occlusion** nodes (`WAS_Image_Ambient_Occlusion`, `WAS_Image_Direct_Occlusion`)
+- All other nodes are unaffected
+- Functionality remains **100% identical** - only execution speed is impacted
+
+**Action Required:**
+- **None** - Update normally. The extension will work immediately with NumPy 2.4+
+- If you need the old Numba-optimized version, use v3.0.1 with NumPy ≤ 2.3
+
+---
 
 # Important Updates
+* **01/31/2026** **v3.1.0** - Removed Numba dependency for NumPy 2.4+ compatibility
 * **06/03/2025** The original author of WAS-NS has retired, so a revised version of the node pack has been registered.
 
 

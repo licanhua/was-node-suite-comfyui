@@ -6,7 +6,6 @@ gitpython
 imageio
 joblib
 matplotlib
-numba>=0.62
 numpy
 opencv-python-headless[ffmpeg]
 pilgram

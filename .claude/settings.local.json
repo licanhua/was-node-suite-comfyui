@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git log:*)",
+      "Bash(\"D:\\\\repo\\\\ComfyUI_windows_portable\\\\python_embeded\\\\python.exe\" -c \"import numpy; print\\(f''NumPy version: {numpy.__version__}''\\)\")",
+      "Bash(\"D:\\\\repo\\\\ComfyUI_windows_portable\\\\python_embeded\\\\python.exe\" -c \"import numba; print\\(f''Numba version: {numba.__version__}''\\)\")",
+      "Bash(\"D:\\\\repo\\\\ComfyUI_windows_portable\\\\python_embeded\\\\python.exe\" -c \"import sys; sys.path.insert\\(0, r''D:\\\\repo\\\\was-node-suite-comfyui''\\); import WAS_Node_Suite\")"
+    ]
+  }
+}
